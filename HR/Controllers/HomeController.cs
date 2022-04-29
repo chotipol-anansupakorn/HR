@@ -5,19 +5,20 @@ using System.Diagnostics;
 namespace HR.Controllers
 {
     public class HomeController : Controller
-    {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
+    {  
         public IActionResult Index()
         {
             return View();
         }
-
+         
+        public IActionResult Hr()
+        {
+            return View();
+        }
+        public IActionResult AddEmployee()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();

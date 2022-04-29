@@ -1,0 +1,126 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="text-center">
+    <h1 class="display-4 mb-3">Human Resources</h1> 
+</div>
+
+ <nav class="mb-5">
+  <ul class="pathway d-flex flex">
+    <li class=""><a asp-controller ="Home" asp-action="Index" class="btn btn-outline-secondary">Dashboard</a></li>
+    <li class=""><span class="right-chevron"> &#187; </span></li>
+    <li class=""><a class="btn btn-secondary">HR</a></li> 
+  </ul>
+</nav>
+
+
+<div class="container-fluid">   
+        <div class="mb-5">
+            <div id="employeeInfo" class="mb-5">
+                    <div id="toggle-card" class="d-flex w-100 justify-content-between">
+                       <p class="form-label h4">Personal Information</p>
+                       <button id="show-card" class="btn btn-bglight h4 visually-hidden">&#x25BC;</button>
+                       <button id ="hide-card" class="btn btn-bglight h4">&#x25B2;</button> 
+                   </div> 
+                   <div class = "hr-line mb-3"></div>
+            </div>
+            
+            <div id="toggleCard" class="">
+                <div id="employee" class="row toggleCardRow">
+                    <div class="col-xl-4 mb-2">                
+                        <div class="card card-body mb-3 d-flex align-items-stretch shadow-sm h-100">  
+                            <h5 class="card-title">Add Employee Infomation</h5>
+                            <p class="card-text" >Add personal and family infomation and also emergency person to contact</p>
+                           <a id ="card-link" asp-area="" asp-controller="Home" asp-action="AddEmployee"> </a>  
+                         </div>
+                     </div>   
+
+                    <div class="col-xl-4 mb-2"> 
+                      <div class="card card-body mb-3 d-flex align-items-stretch shadow-sm h-100">  
+                            <h5 class="card-title">Update Employee Infomation</h5>
+                            <p class="card-text" >Update personal and family infomation and also emergency person to contact</p>
+                            <a id ="card-link" asp-area="" asp-controller="Home" asp-action="UpdateEmployee"> </a>  
+                          </div>
+                      </div>  
+                    </div>
+             </div>
+        </div>
+
+      <div class="mb-5">
+         <div id="attendance_info" class="mb-5">
+               <div id="toggle-card" class="d-flex w-100 justify-content-between">
+                       <p class="form-label h4">Attendance</p>
+                       <button id="show-card"class="btn btn-bglight h4">&#x25BC;</button>
+                       <button id ="hide-card" class="btn btn-bglight h4 visually-hidden">&#x25B2;</button> 
+               </div> 
+               <div class = "hr-line mb-3"></div>
+        </div>
+       
+       <div id="toggleCard" class="closeCard">
+           <div id="attendance" class="row toggleCardRow closeCard"> 
+
+                <div class="col-xl-4 mb-2">
+                    <div class="card card-body mb-3 d-flex align-items-stretch shadow-sm h-100">  
+                        <h5 class="card-title">Check Attendence</h5>
+                        <p class="card-text">Retrive all attendance data from database. You cansdfdfsdf filter with many par to get the data you want</p>
+                        <a id ="card-link" asp-area="" asp-controller="Home" asp-action="AddEmployee"> </a>  
+                    </div> 
+                </div>
+
+               <div class="col-xl-4 mb-2">
+                    <div class="card card-body mb-3 d-flex align-items-stretch shadow-sm h-100">  
+                        <h5 class="card-title">Workinh Hour</h5>
+                        <p class="card-text">Check all working attendance day</p> 
+                        <a id ="card-link" asp-area="" asp-controller="Home" asp-action="AddEmployee"> </a>      
+                    </div> 
+                </div>  
+
+                <div class="col-xl-4 mb-2">
+                    <div class="card card-body mb-3 d-flex align-items-stretch shadow-sm h-100">  
+                        <h5 class="card-title">Leave</h5>
+                        <p class="card-text">Check Leave day for calculating the employee working day</p> 
+                        <a id ="card-link" asp-area="" asp-controller="Home" asp-action="AddEmployee"> </a>      
+                    </div> 
+                </div>  
+            </div> 
+      </div> 
+    </div>
+
+      <div class="mb-5">
+         <div id="salary_info" class="mb-5">
+               <div id="toggle-card" class="d-flex w-100 justify-content-between">
+                       <p class="form-label h4">Salary</p>
+                       <button id="show-card" class="btn btn-bglight h4">&#x25BC;</button>
+                       <button id ="hide-card" class="btn btn-bglight h4 visually-hidden">&#x25B2;</button> 
+               </div> 
+               <div class = "hr-line mb-3"></div>
+        </div>
+        
+        
+       <div id="toggleCard" class="closeCard"> 
+           <div id="salary" class="row toggleCardRow closeCard"> 
+                <div class="col-xl-4 mb-2">
+                    <div class="card card-body mb-3 d-flex align-items-stretch shadow-sm h-100">    
+                        <h5 class="card-title">Salary Report</h5>
+                        <p class="card-text">Calculate all employees' salary following the steetings rule and can export report as xlxs file</p> 
+                        <a id ="card-link" asp-area="" asp-controller="Home" asp-action="AddEmployee"> </a>  
+                    </div> 
+                 </div>  
+
+               <div class="col-xl-4 mb-2">
+                    <div class="card card-body mb-3 d-flex align-items-stretch shadow-sm h-100">  
+                        <h5 class="card-title">Setting</h5>
+                        <p class="card-text">Set all values that related to the salary calculation</p>
+                     <a id ="card-link" asp-area="" asp-controller="Home" asp-action="AddEmployee"> </a>  
+                    </div>     
+              </div>  
+           </div>
+        </div>
+    </div>
+  </div>
+  
+  
+     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

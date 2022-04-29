@@ -1,0 +1,498 @@
+﻿ @{
+    ViewData["Title"] = "Employee Info"; 
+ }
+
+
+<div class="text-center">
+    <h1 class="display-4 mb-3">Add Employee Info</h1> 
+</div>
+
+ <nav class="mb-5">
+  <ul class="pathway d-flex flex">
+    <li class=""><a asp-controller ="Home" asp-action="Index" class="btn btn-outline-secondary">Dashboard</a></li>
+    <li class=""><span class="right-chevron"> &#187; </span></li>
+    <li class=""><a asp-controller ="Home" asp-action="Hr" class="btn btn-outline-secondary">HR</a></li> 
+    <li class=""><span class="right-chevron"> &#187; </span></li>
+    <li class=""><a class="btn btn-secondary">Add</a></li> 
+  </ul>
+</nav>
+
+<div class="container-fluid">     
+  
+        <form class="form-horizontal">
+
+        <div id="personal_info" class="mb-5">
+            <div>
+               <label class="form-label h4">Personal Information</label>
+               <div class = "hr-line mb-3"></div>
+           </div>
+
+          <div class="bg-light  p-4">
+              <div id = "name" class="row">
+                  <div class="col-md-2 mb-3">
+                    <label for="empID" class="form-label">ID</label>
+                    <input type="text" readonly  class="form-control" id="empID" value="6503001">
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" required>
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label for="surname" class="form-label">Surname</label>
+                    <input type="text" class="form-control" id="surname" required>
+                  </div>
+
+                  <div class="col-md-2">
+                    <label for="image" class="form-label">Image</label>
+                    <input class="form-control" type="file" id="image">
+                 </div>
+              </div>
+
+               <div id = "id_no" class="row">
+                   <div class="col-md-4 mb-3">
+                         <label for="id" class="form-label">ID No.</label>
+                         <input type="number" class="form-control" id="id" required>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                         <label for="social_insurance_id" class="form-label">Social Insurance ID</label>
+                         <input type="number" class="form-control" id="social_insurance_id" required>
+                    </div>
+
+                     <div class="col-md-4 mb-3">
+                         <label for="passport_id" class="form-label">Passport ID</label>
+                         <input type="text" class="form-control" id="passport_id">
+                    </div>
+              </div>
+
+               <div id = "status" class="row">  
+                   <div class="col-md-3 mb-3">
+                        <label for="emp_bod" class="form-label">Birthday</label>
+                        <input type="date" class="form-control" id="emp_bod" required>
+                   </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label for="status" class="form-label">Status</label>
+                       <select id="status" class="form-select" required aria-label="Default select example">
+                          <option selected>Select Status</option>
+                          <option value="1">Single</option>
+                          <option value="2">Married</option>
+                          <option value="3">Divorced</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label for="gender" class="form-label">Gender</label>
+                        <select id="gender" class="form-select" required aria-label="Default select example">
+                          <option selected>Select Gender</option>
+                          <option value="1">Male</option>
+                          <option value="2">Female</option>
+                          <option value="3">Others</option>
+                        </select>
+                    </div>   
+
+                     <div class="col-md-3 mb-3">
+                        <label for="soldier" class="form-label">Soldier Status</label>
+                        <select id="soldier" class="form-select" required aria-label="Default select example">
+                          <option selected>Select Soldier Status</option>
+                          <option value="1">Not yet</option>
+                          <option value="2">Excepted</option> 
+                        </select>
+                    </div>   
+              </div>
+
+              <div id = "emp_address" class="row">
+                  <div class="col-md-12 mb-3">
+                     <label for="address1" class="form-label">Address (ID card)</label>
+                     <input type="text" class="form-control" id="address1" required>
+                  </div>
+                  
+                  <div class ="col-md-12 mb-3">
+                      <input class="form-check-input" type="checkbox" value="" id="checkAddress">
+                      <label class="form-check-label" for="checkAddress">
+                        Same as above
+                      </label>
+                  </div>
+
+                  <div class="col-md-12 mb-3">
+                     <label for="address2" class="form-label">Current Address</label>
+                     <input type="text" class="form-control" id="address2" required>
+                  </div>
+              </div>
+           
+              <div id = "province_tel" class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="province" class="form-label">Province</label>
+                       <select id="province" class="form-select" required aria-label="Default select example">
+                          <option selected>Select province</option>
+                          <option value="1">Single</option>
+                          <option value="2">Married</option>
+                          <option value="3">Divorced</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="zipcode" class="form-label">Zip code</label>
+                        <select id="zipcode" class="form-select" required aria-label="Default select example">
+                          <option selected>Select Zip-code</option>
+                          <option value="1">Male</option>
+                          <option value="2">Female</option>
+                          <option value="3">Others</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                         <label for="tel" class="form-label">Phone no.</label>
+                         <input type="tel" class="form-control" id="tel" required>
+                    </div> 
+                 
+              </div> 
+         </div>
+       </div>   
+
+       <div id="family_info" class="mb-5">
+           <div>
+               <label class="form-label h4">Family Information</label>
+                <div class = "hr-line mb-3"></div>
+           </div>
+
+           <div id ="dad_info" class = "bg-light mb-5 p-4">
+                <div class = "row">
+                    <div class="col-md-4 mb-3">
+                         <label for="dad_name" class="form-label">Father's name</label>
+                         <input type="text" class="form-control" id="dad_name" required>
+                     </div>
+
+                      <div class="col-md-4 mb-3">
+                         <label for="dad_surname" class="form-label">Father's surname</label>
+                         <input type="text" class="form-control" id="dad_surname" required>
+                     </div>
+
+                     <div class="col-md-4 mb-3">
+                         <label for="dad_id" class="form-label">ID No.</label>
+                         <input type="number" class="form-control" id="dad_id" required>
+                    </div>
+                </div>
+
+                <div class="row">                   
+                    <div class="col-md-4 mb-3">
+                        <label for="dad_bod" class="form-label">Birthday</label>
+                        <input type="date" class="form-control" id="dad_bod" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="dad_job" class="form-label">Job</label> 
+                        <input type="text" class="form-control" id="dad_job" required>
+                    </div> 
+                    <div class="col-md-4 mb-3">
+                         <label for="dad_tel" class="form-label">Phone No.</label>
+                         <input type="tel" class="form-control" id="dad_tel" required>
+                    </div>
+                 </div>
+           </div> 
+
+           <div id ="mom_info" class = "mb-5 p-4">
+                <div class = "row">
+                    <div class="col-md-4 mb-3">
+                         <label for="mom_name" class="form-label">Mother's name</label>
+                         <input type="text" class="form-control" id="mom_name" required>
+                     </div>
+
+                      <div class="col-md-4 mb-3">
+                         <label for="mom_surname" class="form-label">Mother's surname</label>
+                         <input type="text" class="form-control" id="mom_surname" required>
+                     </div>
+
+                     <div class="col-md-4 mb-3">
+                         <label for="mom_id" class="form-label">ID No.</label>
+                         <input type="number" class="form-control" id="mom_id" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="mom_bod" class="form-label">Birthday</label>
+                        <input type="date" class="form-control" id="mom_bod" required>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="mom_job" class="form-label">Job</label> 
+                        <input type="text" class="form-control" id="mom_job" required>
+                    </div>   
+
+                    <div class="col-md-4 mb-3">
+                         <label for="mom_tel" class="form-label">Phone No.</label>
+                         <input type="tel" class="form-control" id="mom_tel" required>
+                    </div>
+
+                 </div>
+           </div> 
+
+           <div id="sibling" class = "bg-light mb-5 p-4">
+               <div id ="sibling_info">
+                    <div id ="sibling_info1" class = "row">
+                        <div class="col-md-6 mb-3">
+                             <label for="sibling_name" class="form-label">Sibling's name</label>
+                             <input type="text" class="form-control" id="sibling_name" required>
+                         </div>
+                          <div class="col-md-6 mb-3">
+                             <label for="sibling_surname" class="form-label">Sibling's surname</label>
+                             <input type="text" class="form-control" id="sibling_surname" required>
+                         </div>
+                    </div>
+
+                    <div id ="sibling_info2" class="row">
+                       <div class="col-md-4 mb-3">
+                             <label for="sibling_id" class="form-label">ID No.</label>
+                             <input type="number" class="form-control" id="sibling_id" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="spouse_bod" class="form-label">Birthday</label>
+                            <input type="date" class="form-control" id="spouse_bod" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="sibling_job" class="form-label">Job</label> 
+                            <input type="text" class="form-control" id="sibling_job" required>
+                        </div>   
+                     </div>
+               </div>
+           </div>
+           <div class="row justify-content-end"> 
+                        <a id ="addSibling" class="btn btn-secondary mx-2 mb-2" style="width: 150px;" onclick ="addForm('sibling_info','sibling')">Add sibling</a> 
+           </div>
+
+           <div id ="spouse_info" class = "mb-5 p-4">
+                <div class = "row">
+                    <div class="col-md-6 mb-3">
+                         <label for="spouse_name" class="form-label">Spouse's name</label>
+                         <input type="text" class="form-control" id="spouse_name" required>
+                     </div>
+                      <div class="col-md-6 mb-3">
+                         <label for="spouse_surname" class="form-label">Spouse's surname</label>
+                         <input type="text" class="form-control" id="spouse_surname" required>
+                     </div>
+                </div>
+
+                <div class="row">
+                   <div class="col-md-4 mb-3">
+                         <label for="spouse_id" class="form-label">ID No.</label>
+                         <input type="number" class="form-control" id="spouse_id" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="spouse_bod" class="form-label">Birthday</label>
+                        <input type="date" class="form-control" id="spouse_bod" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="spouse_job" class="form-label">Job</label> 
+                        <input type="text" class="form-control" id="spouse_job" required>
+                    </div>   
+                 </div>
+           </div> 
+
+           <div id ="child" class ="bg-light mb-5 p-4">
+               <div id ="child_info">
+                    <div id ="child_info1" class = "row">
+                        <div class="col-md-6 mb-3">
+                             <label for="child_name" class="form-label">Child's name</label>
+                             <input type="text" class="form-control" id="child_name" required>
+                         </div>
+
+                          <div class="col-md-6 mb-3">
+                             <label for="child_surname" class="form-label">Child's surname</label>
+                             <input type="text" class="form-control" id="child_surname" required>
+                         </div>
+                    </div>
+                 
+                     <div id ="child_info2" class="row">
+                           <div class="col-md-4 mb-3">
+                                 <label for="child_id" class="form-label">ID No.</label>
+                                 <input type="number" class="form-control" id="child_id" required>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label for="child_bod" class="form-label">Birthday</label>
+                                <input type="date" class="form-control" id="child_bod" required>
+                            </div>
+                                                         
+                            <div class="col-md-4 mb-3">
+                                <label for="education" class="form-label">Education</label>
+                                <select id="education" class="form-select" required aria-label="Default select example">
+                                  <option selected>Select Education Background</option>
+                                  <option value="1">High School</option>
+                                  <option value="2">Bachelor's degree</option>
+                                  <option value="3">Master degree</option>
+                                </select>
+                            </div>
+                    </div>
+               </div>      
+           </div>
+
+           <div class="row justify-content-end"> 
+                        <a id ="addChild" class="btn btn-secondary mx-2 mb-2" style="width: 150px;" onclick ="addForm('child_info','child')">Add child</a> 
+           </div>           
+        </div>  
+
+        <div id="emergency_info" class="mb-5">
+            <div>
+               <label class="form-label h4">Emergency Information</label>
+                <div class = "hr-line mb-3"></div>
+            </div>
+
+             <div id ="emergency_contact" class="bg-light mb-5 p-4">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                       <label for="emergencyContact" class="form-label">Emergency Contact's name</label>
+                       <input type="text" class="form-control" id="emergencyContact" required>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                       <label for="emergencyContact" class="form-label">Emergency Contact's surname</label>
+                       <input type="text" class="form-control" id="emergencyContact" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="emergencyTel" class="form-label">Emergency phone no.</label>
+                        <input type="tel" class="form-control" id="emergencyTel" required>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                       <label for="relation" class="form-label">Relation</label>
+                       <input type="text" class="form-control" id="relation" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="personal_info" class="mb-5">
+               <div>
+                   <label class="form-label h4">Position Information</label>
+                   <div class = "hr-line mb-3"></div>
+               </div> 
+               <div class="bg-light  p-4">
+                  <div id = "name" class="row">
+                      <div class="col-md-4 mb-3">
+                           <label for="dept" class="form-label">Department</label>
+                           <select id="dept" class="form-select" required aria-label="Select department">
+                              <option selected>Select department</option>
+                              <option value="1">Sales</option>
+                              <option value="2">Margeting</option>
+                              <option value="3">Account</option>
+                            </select>
+                       </div>
+                     
+                       <div class ="col-md-4 mb-3">
+                           <label for ="postion" class="form-label">Position</label> 
+                           <select id="postion" class="form-select" required aria-label="Select postion">
+                              <option selected>Select position</option>
+                              <option value="1">General Manager</option>
+                              <option value="2">Assistant Manager</option>
+                              <option value="3">Officer</option>
+                            </select>
+                       </div>
+
+                         <div class ="col-md-4 mb-3"> 
+                           <label for="job" class="form-label">Job</label>
+                           <select id="job" class="form-select" required aria-label="Select Job">
+                              <option selected>Select job</option>
+                              <option value="1">programmer</option>
+                              <option value="2">Account officer</option>
+                              <option value="3">Data analysis</option>
+                            </select>
+                       </div> 
+                  </div>
+               </div>         
+            </div>
+
+             <div id="working" class="mb-5">
+                  <div>
+                       <label class="form-label h4">Working Information</label>
+                       <div class = "hr-line mb-3"></div>
+                  </div> 
+                  <div class="p-4">
+                      <div id="working_info" class="row">
+                          <div class="col-md-4 mb-3">
+                               <label for="dept" class="form-label">Working hours</label>
+                               <select id="dept" class="form-select" required aria-label="Select working hours">
+                                  <option selected>Select Working hours</option>
+                                  <option value="1">09:00 - 18:00</option>
+                                  <option value="2">20:00 - 07:00</option> 
+                                </select>
+                           </div>
+                     
+                           <div class ="col-md-4 mb-3">
+                               <label for ="postion" class="form-label">Start Date</label> 
+                               <input id="startDate" class="form-control" type="date" required/>
+                           </div>
+
+                           <div class ="col-md-4 mb-3">
+                               <label for ="postion" class="form-label">End Date</label> 
+                               <input id="startDate" class="form-control" type="date" disabled/>
+                           </div> 
+                      </div>
+                  </div> 
+             </div>
+
+             <div id="salary" class="mb-5">
+               <div>
+                   <label class="form-label h4">Salary Information</label>
+                  <div class = "hr-line mb-3"></div>
+               </div> 
+               <div class="bg-light  p-4">
+                  <div id = "salary1" class="row">
+                      <div class="col-md-3 mb-3">
+                           <label for="baseSalary" class="form-label">Base Salary</label>
+                           <input id="baseSalary" class="form-control" type="number" required/>
+                       </div>
+
+                       <div class="col-md-3 mb-3">
+                           <label for="langSkill" class="form-label">Language Skill</label>
+                           <input id="langSkill" class="form-control" type="number" required/>
+                       </div>
+
+                       <div class="col-md-3 mb-3">
+                           <label for="itSkill" class="form-label">IT Skill</label>
+                           <input id="itSkill" class="form-control" type="number" required/>
+                       </div>
+
+                       <div class="col-md-3 mb-3">
+                           <label for="techniqueSkill" class="form-label">Technique skill</label>
+                           <input id="techniqueSkill" class="form-control" type="number" required/>
+                       </div>  
+                  </div>
+
+                  <div id = "salary2" class="row">
+                      <div class="col-md-3 mb-3">
+                           <label for="transportation" class="form-label">Transportation</label>
+                           <input id="transportation" class="form-control" type="number" required/>
+                       </div>
+
+                       <div class="col-md-3 mb-3">
+                           <label for="livingCost" class="form-label">Living cost</label>
+                           <input id="livingCost" class="form-control" type="number" required/>
+                       </div>
+
+                       <div class="col-md-3 mb-3">
+                           <label for="meal" class="form-label">Meal support</label>
+                           <input id="meal" class="form-control" type="number" required/>
+                       </div>
+
+                       <div class="col-md-3 mb-3">
+                           <label for="other" class="form-label">Other</label>
+                           <input id="other" class="form-control" type="number" required/>
+                       </div>  
+                  </div>
+               </div>         
+            </div>
+
+         <div id = "btn_part" class = "row text-center">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-secondary mx-2 mb-3" style="width: 150px;">Confirm</button> 
+                    <button type="reset" class="btn btn-light mx-2 mb-3" style="width: 150px;">Clear</button>
+                </div>
+         </div> 
+        </form>
+  </div>
+ 
