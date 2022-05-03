@@ -7,6 +7,6 @@ namespace HR.Models.db
     {
         public int Id { get; set; }
         public string SubdistrictName { get; set; } = null!;
-        public string ZipcodeId { get; set; } = null!;
+        public int DistrictId { get; set; }
     }
 }

@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using HR.Models.db;
-using HR.Models.Viewmodels;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace HR.Models.db
@@ -45,15 +42,12 @@ namespace HR.Models.db
         {
             if (!optionsBuilder.IsConfigured)
             {
-                if (!optionsBuilder.IsConfigured)
-                {
-                    IConfigurationRoot configuration = new ConfigurationBuilder()
-                    .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json")
-                    .Build();
-                    var ConnectionStrings = configuration.GetConnectionString("HRServer");
-                    optionsBuilder.UseSqlServer(ConnectionStrings);
-                }
+                IConfigurationRoot configuration = new ConfigurationBuilder()
+                      .SetBasePath(Directory.GetCurrentDirectory())
+                      .AddJsonFile("appsettings.json")
+                      .Build();
+                var ConnectionStrings = configuration.GetConnectionString("HRServer");
+                optionsBuilder.UseSqlServer(ConnectionStrings);
             }
         }
 
@@ -513,11 +507,9 @@ namespace HR.Models.db
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.SubdistrictName).HasColumnName("subdistrictName");
+                entity.Property(e => e.DistrictId).HasColumnName("districtId");
 
-                entity.Property(e => e.ZipcodeId)
-                    .HasMaxLength(5)
-                    .HasColumnName("zipcodeId");
+                entity.Property(e => e.SubdistrictName).HasColumnName("subdistrictName");
             });
 
             modelBuilder.Entity<WorkingPeriod>(entity =>
@@ -572,6 +564,8 @@ namespace HR.Models.db
                 entity.ToTable("zipcode");
 
                 entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.SubdistrictId).HasColumnName("subdistrictId");
 
                 entity.Property(e => e.ZipcodeName)
                     .HasMaxLength(5)

@@ -65,7 +65,17 @@ namespace HR.Controllers
         // GET: Employees/Create
         public IActionResult Create()
         {
+            var data = (from province in _context.Provinces
+                                    select province).ToList();
+            ViewData["provinces"] = new SelectList(data,"Id", "ProvinceName");
             return View();
+        }
+        public JsonResult GetDistrictByProvinceId(int provinceId)
+        {
+            var data = (from district in _context.Districts
+                        where district.ProvinceId == provinceId
+                        select district).ToList();
+            return Json(data);
         }
 
         // POST: Employees/Create
