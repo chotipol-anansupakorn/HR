@@ -5,7 +5,7 @@ namespace HR.Models.db
 {
     public partial class EmpSubordinate
     {
-        public int EmpId { get; set; }
-        public int SubordinateId { get; set; }
+        public string EmpId { get; set; } = null!;
+        public string SubordinateId { get; set; } = null!;
     }
 }

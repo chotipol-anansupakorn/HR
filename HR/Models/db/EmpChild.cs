@@ -5,9 +5,12 @@ namespace HR.Models.db
 {
     public partial class EmpChild
     {
-        public int EmpId { get; set; }
-        public string EmpChildName { get; set; } = null!;
-        public string EmpChildSurname { get; set; } = null!;
-        public DateTime EmpChildDob { get; set; }
+        public int Id { get; set; }
+        public string? EmpId { get; set; }
+        public string? EmpChildName { get; set; }
+        public string? EmpChildSurname { get; set; }
+        public DateTime? EmpChildDob { get; set; }
+
+        public virtual Employee? Emp { get; set; }
     }
 }

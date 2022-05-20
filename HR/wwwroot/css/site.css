@@ -16,7 +16,25 @@ html {
 body {
     margin-bottom: 60px;
 }
-
+td {
+    vertical-align: middle;
+}
+.hyperlink:visited,
+.hyperlink:link {
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+    transition: ease-in-out all 0.25s;
+}
+.btn-sm-w{ 
+    font-size:18px; 
+    color:white;
+}
+.hyperlink:hover,
+.hyperlink:active {
+    color: darkslategray;
+    transform: scale(1.15);
+}
 .pathway {
     list-style: none;
     display: flex;

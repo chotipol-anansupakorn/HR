@@ -10,7 +10,6 @@ namespace HR.Models.db
         public int WorkingHrsId { get; set; }
         public DateTime ShiftStartDate { get; set; }
         public DateTime ShiftStopDate { get; set; }
-        public byte[] RegistDateTime1 { get; set; } = null!;
-        public string RegistBy { get; set; } = null!;
+        public DateTime RegistDateTime { get; set; }
     }
 }

@@ -5,11 +5,14 @@ namespace HR.Models.db
 {
     public partial class EmpSlibing
     {
-        public int EmpId { get; set; }
-        public string EmpSlibingName { get; set; } = null!;
-        public string EmpSlibingSurname { get; set; } = null!;
-        public DateTime EmpSlibingDob { get; set; }
-        public string EmpSlibingJob { get; set; } = null!;
-        public string EmpSlibingTel { get; set; } = null!;
+        public int Id { get; set; }
+        public string? EmpId { get; set; }
+        public string? EmpSlibingName { get; set; }
+        public string? EmpSlibingSurname { get; set; }
+        public DateTime? EmpSlibingDob { get; set; }
+        public string? EmpSlibingJob { get; set; }
+        public string? EmpSlibingTel { get; set; }
+
+        public virtual Employee? Emp { get; set; }
     }
 }

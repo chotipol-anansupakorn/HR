@@ -2,8 +2,14 @@
 
 @{
     ViewData["Title"] = "Index";
+    
+    if (TempData["message"] != null)
+    {
+        <script>alert('@TempData["message"]');</script>
+       TempData.Remove("message");
+    }
 }
-
+ 
 <h1>Index</h1>
 
 <p>
@@ -24,6 +30,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.EmpJobName)
             </th> 
+            <th>
+                @Html.DisplayNameFor(model => model.EmpImage)  
+            </th> 
             <th></th>
         </tr>
     </thead>
@@ -31,23 +40,35 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.EmpId)
+                 <a class="hyperlink" asp-action="Details" asp-route-id="@item.EmpId">@Html.DisplayFor(modelItem => item.EmpId)</a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EmpName)
+                 <a class="hyperlink" asp-action="Details" asp-route-id="@item.EmpId">@Html.DisplayFor(modelItem => item.EmpName)</a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EmpSurname)
+                <a class="hyperlink" asp-action="Details" asp-route-id="@item.EmpId">@Html.DisplayFor(modelItem => item.EmpSurname)</a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.EmpJobName)
-            </td> 
-            <td>
-                <a asp-action="Details" asp-route-id="@item.EmpId" class="btn btn-success">Details</a> |
-                <a asp-action="Edit" asp-route-id="@item.EmpId" class="btn btn-warning">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.EmpId" class="btn btn-danger">Delete</a>
+                 <a class="hyperlink"  asp-action="Details" asp-route-id="@item.EmpId">@Html.DisplayFor(modelItem => item.EmpJobName)</a>
+            </td>
+            <td >   
+                    @if (item.EmpImage.Any())
+                    {
+                        var src = "~/image/" + item.EmpImage;
+                       <a asp-action="Details" asp-route-id="@item.EmpId"> <img src = "@src.ToString()" asp-append-version = "true" width="100px" alt="pic"/></a>
+                    } 
+            </td>
+            <td> 
+                <a  asp-action="Edit" asp-route-id="@item.EmpId" class="btn btn-warning btn-sm-w" width = "15px">&#x2710;</a>
+                <a  asp-action="Delete" asp-route-id="@item.EmpId" class="btn btn-danger btn-sm-w" width = "15px">&#x2716;</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+@section Scripts {
+    <script src="~/js/Region.js"></script>
+    <script src="~/js/site.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

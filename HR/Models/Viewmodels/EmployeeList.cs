@@ -8,5 +8,6 @@
         public string? EmpJobName { get; set; }
         public string? EmpPosition { get; set; }
         public string? EmpDepartment { get; set; }
+        public string? EmpImage { get; set; }
     }
 }

@@ -18,12 +18,12 @@ namespace HR.Models.db
 
         public virtual DbSet<Department> Departments { get; set; } = null!;
         public virtual DbSet<District> Districts { get; set; } = null!;
+        public virtual DbSet<EmpBoss> EmpBosses { get; set; } = null!;
         public virtual DbSet<EmpChild> EmpChildren { get; set; } = null!;
         public virtual DbSet<EmpContact> EmpContacts { get; set; } = null!;
         public virtual DbSet<EmpLeave> EmpLeaves { get; set; } = null!;
         public virtual DbSet<EmpOt> EmpOts { get; set; } = null!;
         public virtual DbSet<EmpSlibing> EmpSlibings { get; set; } = null!;
-        public virtual DbSet<EmpSubordinate> EmpSubordinates { get; set; } = null!;
         public virtual DbSet<EmpTimestamp> EmpTimestamps { get; set; } = null!;
         public virtual DbSet<Employee> Employees { get; set; } = null!;
         public virtual DbSet<Gender> Genders { get; set; } = null!;
@@ -43,11 +43,11 @@ namespace HR.Models.db
             if (!optionsBuilder.IsConfigured)
             {
                 IConfigurationRoot configuration = new ConfigurationBuilder()
-                      .SetBasePath(Directory.GetCurrentDirectory())
-                      .AddJsonFile("appsettings.json")
-                      .Build();
-                var ConnectionStrings = configuration.GetConnectionString("HRServer");
-                optionsBuilder.UseSqlServer(ConnectionStrings);
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build();
+                var connectionString = configuration.GetConnectionString("HRServer");
+                optionsBuilder.UseSqlServer(connectionString);
             }
         }
 
@@ -78,11 +78,32 @@ namespace HR.Models.db
                 entity.Property(e => e.ProvinceId).HasColumnName("provinceId");
             });
 
+            modelBuilder.Entity<EmpBoss>(entity =>
+            {
+                entity.ToTable("empBoss");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.BossId)
+                    .HasMaxLength(7)
+                    .HasColumnName("BossID");
+
+                entity.Property(e => e.EmpId)
+                    .HasMaxLength(7)
+                    .HasColumnName("empID");
+
+                entity.HasOne(d => d.Emp)
+                    .WithMany(p => p.EmpBosses)
+                    .HasForeignKey(d => d.EmpId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_empSubordinate_employee");
+            });
+
             modelBuilder.Entity<EmpChild>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("empChild");
+
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.EmpChildDob)
                     .HasColumnType("date")
@@ -90,41 +111,42 @@ namespace HR.Models.db
 
                 entity.Property(e => e.EmpChildName)
                     .HasMaxLength(50)
-                    .IsUnicode(false)
                     .HasColumnName("empChildName");
 
                 entity.Property(e => e.EmpChildSurname)
                     .HasMaxLength(75)
-                    .IsUnicode(false)
                     .HasColumnName("empChildSurname");
 
-                entity.Property(e => e.EmpId).HasColumnName("empID");
+                entity.Property(e => e.EmpId)
+                    .HasMaxLength(7)
+                    .HasColumnName("empID");
+
+                entity.HasOne(d => d.Emp)
+                    .WithMany(p => p.EmpChildren)
+                    .HasForeignKey(d => d.EmpId)
+                    .HasConstraintName("FK_empChild_Id");
             });
 
             modelBuilder.Entity<EmpContact>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("empContact");
+
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.EmergencyContactName)
                     .HasMaxLength(50)
-                    .IsUnicode(false)
                     .HasColumnName("emergencyContactName");
 
                 entity.Property(e => e.EmergencyContactRelation)
                     .HasMaxLength(50)
-                    .IsUnicode(false)
                     .HasColumnName("emergencyContactRelation");
 
                 entity.Property(e => e.EmergencyContactSurname)
                     .HasMaxLength(75)
-                    .IsUnicode(false)
                     .HasColumnName("emergencyContactSurname");
 
                 entity.Property(e => e.EmergencyContactTel)
-                    .HasMaxLength(13)
-                    .IsUnicode(false)
+                    .HasMaxLength(50)
                     .HasColumnName("emergencyContactTel");
 
                 entity.Property(e => e.EmpDadDob)
@@ -133,25 +155,23 @@ namespace HR.Models.db
 
                 entity.Property(e => e.EmpDadJob)
                     .HasMaxLength(100)
-                    .IsUnicode(false)
                     .HasColumnName("empDadJob");
 
                 entity.Property(e => e.EmpDadName)
                     .HasMaxLength(50)
-                    .IsUnicode(false)
                     .HasColumnName("empDadName");
 
                 entity.Property(e => e.EmpDadSurname)
                     .HasMaxLength(75)
-                    .IsUnicode(false)
                     .HasColumnName("empDadSurname");
 
                 entity.Property(e => e.EmpDadTel)
-                    .HasMaxLength(13)
-                    .IsUnicode(false)
+                    .HasMaxLength(50)
                     .HasColumnName("empDadTel");
 
-                entity.Property(e => e.EmpId).HasColumnName("empID");
+                entity.Property(e => e.EmpId)
+                    .HasMaxLength(7)
+                    .HasColumnName("empID");
 
                 entity.Property(e => e.EmpMomDob)
                     .HasColumnType("date")
@@ -159,22 +179,18 @@ namespace HR.Models.db
 
                 entity.Property(e => e.EmpMomJob)
                     .HasMaxLength(100)
-                    .IsUnicode(false)
                     .HasColumnName("empMomJob");
 
                 entity.Property(e => e.EmpMomName)
                     .HasMaxLength(50)
-                    .IsUnicode(false)
                     .HasColumnName("empMomName");
 
                 entity.Property(e => e.EmpMomSurname)
                     .HasMaxLength(75)
-                    .IsUnicode(false)
                     .HasColumnName("empMomSurname");
 
                 entity.Property(e => e.EmpMomTel)
-                    .HasMaxLength(13)
-                    .IsUnicode(false)
+                    .HasMaxLength(50)
                     .HasColumnName("empMomTel");
 
                 entity.Property(e => e.EmpSpouseDob)
@@ -183,32 +199,40 @@ namespace HR.Models.db
 
                 entity.Property(e => e.EmpSpouseJob)
                     .HasMaxLength(100)
-                    .IsUnicode(false)
                     .HasColumnName("empSpouseJob");
 
                 entity.Property(e => e.EmpSpouseName)
                     .HasMaxLength(50)
-                    .IsUnicode(false)
                     .HasColumnName("empSpouseName");
 
                 entity.Property(e => e.EmpSpouseSurname)
                     .HasMaxLength(75)
-                    .IsUnicode(false)
                     .HasColumnName("empSpouseSurname");
 
                 entity.Property(e => e.EmpSpouseTel)
-                    .HasMaxLength(13)
-                    .IsUnicode(false)
+                    .HasMaxLength(50)
                     .HasColumnName("empSpouseTel");
+
+                entity.HasOne(d => d.Emp)
+                    .WithMany(p => p.EmpContacts)
+                    .HasForeignKey(d => d.EmpId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_empContact_Id");
             });
 
             modelBuilder.Entity<EmpLeave>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("empLeave");
 
-                entity.Property(e => e.EmpId).HasColumnName("empID");
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.ApproveBy)
+                    .HasMaxLength(7)
+                    .HasColumnName("approveBy");
+
+                entity.Property(e => e.EmpId)
+                    .HasMaxLength(7)
+                    .HasColumnName("empID");
 
                 entity.Property(e => e.LeaveId).HasColumnName("leaveID");
 
@@ -220,49 +244,64 @@ namespace HR.Models.db
                     .HasColumnType("datetime")
                     .HasColumnName("leaveStop");
 
-                entity.Property(e => e.RegistBy)
-                    .HasMaxLength(7)
-                    .HasColumnName("registBy");
-
                 entity.Property(e => e.RegistDateTime)
                     .IsRowVersion()
                     .IsConcurrencyToken()
                     .HasColumnName("registDateTime");
+
+                entity.HasOne(d => d.Emp)
+                    .WithMany(p => p.EmpLeaves)
+                    .HasForeignKey(d => d.EmpId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_empLeave_empLeave");
             });
 
             modelBuilder.Entity<EmpOt>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("empOT");
 
-                entity.Property(e => e.EmpId).HasColumnName("empID");
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("id");
+
+                entity.Property(e => e.ApproveBy)
+                    .HasMaxLength(7)
+                    .HasColumnName("approveBy");
+
+                entity.Property(e => e.EmpId)
+                    .HasMaxLength(7)
+                    .HasColumnName("empID");
 
                 entity.Property(e => e.OtDate)
                     .HasColumnType("date")
                     .HasColumnName("OT_Date");
 
+                entity.Property(e => e.OtId).HasColumnName("OT_id");
+
                 entity.Property(e => e.OtStart).HasColumnName("OT_Start");
 
                 entity.Property(e => e.OtStop).HasColumnName("OT_Stop");
 
-                entity.Property(e => e.RegistBy)
-                    .HasMaxLength(7)
-                    .HasColumnName("registBy");
-
                 entity.Property(e => e.RegistDateTime)
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
+                    .HasColumnType("datetime")
                     .HasColumnName("registDateTime");
+
+                entity.HasOne(d => d.Emp)
+                    .WithMany(p => p.EmpOts)
+                    .HasForeignKey(d => d.EmpId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_empOT_employee");
             });
 
             modelBuilder.Entity<EmpSlibing>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("empSlibing");
 
-                entity.Property(e => e.EmpId).HasColumnName("empID");
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.EmpId)
+                    .HasMaxLength(7)
+                    .HasColumnName("empID");
 
                 entity.Property(e => e.EmpSlibingDob)
                     .HasColumnType("date")
@@ -270,43 +309,35 @@ namespace HR.Models.db
 
                 entity.Property(e => e.EmpSlibingJob)
                     .HasMaxLength(100)
-                    .IsUnicode(false)
                     .HasColumnName("empSlibingJob");
 
                 entity.Property(e => e.EmpSlibingName)
                     .HasMaxLength(50)
-                    .IsUnicode(false)
                     .HasColumnName("empSlibingName");
 
                 entity.Property(e => e.EmpSlibingSurname)
                     .HasMaxLength(75)
-                    .IsUnicode(false)
                     .HasColumnName("empSlibingSurname");
 
                 entity.Property(e => e.EmpSlibingTel)
-                    .HasMaxLength(13)
-                    .IsUnicode(false)
+                    .HasMaxLength(50)
                     .HasColumnName("empSlibingTel");
-            });
 
-            modelBuilder.Entity<EmpSubordinate>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToTable("empSubordinate");
-
-                entity.Property(e => e.EmpId).HasColumnName("empID");
-
-                entity.Property(e => e.SubordinateId).HasColumnName("subordinateID");
+                entity.HasOne(d => d.Emp)
+                    .WithMany(p => p.EmpSlibings)
+                    .HasForeignKey(d => d.EmpId)
+                    .HasConstraintName("FK_empSlibing_Id");
             });
 
             modelBuilder.Entity<EmpTimestamp>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("empTimestamp");
 
-                entity.Property(e => e.EmpId).HasColumnName("empID");
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.EmpId)
+                    .HasMaxLength(7)
+                    .HasColumnName("empID");
 
                 entity.Property(e => e.TimeIn)
                     .HasColumnType("datetime")
@@ -315,6 +346,12 @@ namespace HR.Models.db
                 entity.Property(e => e.TimeOut)
                     .HasColumnType("datetime")
                     .HasColumnName("timeOut");
+
+                entity.HasOne(d => d.Emp)
+                    .WithMany(p => p.EmpTimestamps)
+                    .HasForeignKey(d => d.EmpId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_empTimestamp_employee");
             });
 
             modelBuilder.Entity<Employee>(entity =>
@@ -332,9 +369,11 @@ namespace HR.Models.db
 
                 entity.Property(e => e.BaseSalary).HasColumnName("baseSalary");
 
-                entity.Property(e => e.District)
-                    .HasMaxLength(100)
-                    .HasColumnName("district");
+                entity.Property(e => e.Bod)
+                    .HasColumnType("date")
+                    .HasColumnName("bod");
+
+                entity.Property(e => e.District).HasColumnName("district");
 
                 entity.Property(e => e.EmpCurrentAddress).HasColumnName("empCurrentAddress");
 
@@ -356,9 +395,7 @@ namespace HR.Models.db
                     .HasMaxLength(50)
                     .HasColumnName("empIDNo");
 
-                entity.Property(e => e.EmpImage)
-                    .IsUnicode(false)
-                    .HasColumnName("empImage");
+                entity.Property(e => e.EmpImage).HasColumnName("empImage");
 
                 entity.Property(e => e.EmpJobName)
                     .HasMaxLength(50)
@@ -388,32 +425,30 @@ namespace HR.Models.db
                     .ValueGeneratedOnAdd()
                     .HasColumnName("id");
 
-                entity.Property(e => e.IsDelete).HasColumnName("isDelete");
+                entity.Property(e => e.IsDelete)
+                    .HasColumnName("isDelete")
+                    .HasDefaultValueSql("((0))");
 
-                entity.Property(e => e.Province)
-                    .HasMaxLength(100)
-                    .HasColumnName("province");
+                entity.Property(e => e.Probation).HasColumnName("probation");
+
+                entity.Property(e => e.Province).HasColumnName("province");
 
                 entity.Property(e => e.RegistBy)
                     .HasMaxLength(7)
                     .HasColumnName("registBy");
 
                 entity.Property(e => e.RegistDateTime)
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("registDateTime");
+                    .HasColumnType("datetime")
+                    .HasColumnName("registDateTime")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.SkillSalary).HasColumnName("skillSalary");
 
-                entity.Property(e => e.SubDistrict)
-                    .HasMaxLength(100)
-                    .HasColumnName("subDistrict");
+                entity.Property(e => e.SubDistrict).HasColumnName("subDistrict");
 
                 entity.Property(e => e.WorkingHrsId).HasColumnName("workingHrsID");
 
-                entity.Property(e => e.Zipcode)
-                    .HasMaxLength(50)
-                    .HasColumnName("zipcode");
+                entity.Property(e => e.Zipcode).HasColumnName("zipcode");
             });
 
             modelBuilder.Entity<Gender>(entity =>
@@ -470,13 +505,9 @@ namespace HR.Models.db
 
             modelBuilder.Entity<Ot>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("OT");
 
-                entity.Property(e => e.OtId)
-                    .ValueGeneratedOnAdd()
-                    .HasColumnName("OT_ID");
+                entity.Property(e => e.OtId).HasColumnName("OT_ID");
 
                 entity.Property(e => e.OtMutiple).HasColumnName("OT_mutiple");
             });
@@ -539,14 +570,9 @@ namespace HR.Models.db
 
                 entity.Property(e => e.EmpId).HasColumnName("empID");
 
-                entity.Property(e => e.RegistBy)
-                    .HasMaxLength(7)
-                    .HasColumnName("registBy");
-
-                entity.Property(e => e.RegistDateTime1)
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("registDateTime1");
+                entity.Property(e => e.RegistDateTime)
+                    .HasColumnType("datetime")
+                    .HasColumnName("registDateTime");
 
                 entity.Property(e => e.ShiftStartDate)
                     .HasColumnType("datetime")

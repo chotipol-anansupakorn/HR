@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <Folder Include="Models\db\" />
+	  <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

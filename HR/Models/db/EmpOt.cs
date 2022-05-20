@@ -5,11 +5,15 @@ namespace HR.Models.db
 {
     public partial class EmpOt
     {
-        public int EmpId { get; set; }
+        public int Id { get; set; }
+        public string EmpId { get; set; } = null!;
         public DateTime OtDate { get; set; }
         public TimeSpan OtStart { get; set; }
         public TimeSpan OtStop { get; set; }
-        public byte[] RegistDateTime { get; set; } = null!;
-        public string RegistBy { get; set; } = null!;
+        public int OtId { get; set; }
+        public DateTime RegistDateTime { get; set; }
+        public string ApproveBy { get; set; } = null!;
+
+        public virtual Employee Emp { get; set; } = null!;
     }
 }
