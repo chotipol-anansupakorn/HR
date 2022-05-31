@@ -98,4 +98,4 @@ mainbar.forEach((item, index) => {
 
 
 // finish function toggle card
-
+ 

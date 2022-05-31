@@ -7,10 +7,8 @@ namespace HR.Models.db
     {
         public Employee()
         {
-            EmpBosses = new HashSet<EmpBoss>();
             EmpChildren = new HashSet<EmpChild>();
             EmpContacts = new HashSet<EmpContact>();
-            EmpLeaves = new HashSet<EmpLeave>();
             EmpOts = new HashSet<EmpOt>();
             EmpSlibings = new HashSet<EmpSlibing>();
             EmpTimestamps = new HashSet<EmpTimestamp>();
@@ -46,10 +44,8 @@ namespace HR.Models.db
         public string? RegistBy { get; set; }
         public int? IsDelete { get; set; }
 
-        public virtual ICollection<EmpBoss> EmpBosses { get; set; }
         public virtual ICollection<EmpChild> EmpChildren { get; set; }
         public virtual ICollection<EmpContact> EmpContacts { get; set; }
-        public virtual ICollection<EmpLeave> EmpLeaves { get; set; }
         public virtual ICollection<EmpOt> EmpOts { get; set; }
         public virtual ICollection<EmpSlibing> EmpSlibings { get; set; }
         public virtual ICollection<EmpTimestamp> EmpTimestamps { get; set; }

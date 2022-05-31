@@ -4,9 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - HR</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" media='screen,print' />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/HR.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
 </head>
     <script src="~/lib/chartjs/dist/chart.js"></script>
     <script src="~/lib/chartjs/dist/chart.esm.js"></script>
@@ -24,23 +25,40 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Dashboard</a>
-                        </li>
-                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Hr">HR</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li> 
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Employees" asp-action="Index">Employee</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="TimeStamp" asp-action="Index">TimeStamp</a>
+                        </li> 
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-dark dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Admin</a>
+                            <ul class="dropdown-menu">
+                              <li><a class="dropdown-item" asp-area="" asp-controller="Employees" asp-action="Index">Employee List</a></li>
+                              <li><a class="dropdown-item" asp-area="" asp-controller="Employees" asp-action="Create">Add Employee</a></li> 
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="dropdown-item" href="#">Attendence</a></li>
+                              <li><a class="dropdown-item" href="#">Salray Report</a></li> 
+                            </ul>
+                          </li> 
+
+                           <li class="nav-item dropdown">
+                            <a class="nav-link text-dark dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Setting</a>
+                            <ul class="dropdown-menu">
+                              <li><a class="dropdown-item" asp-area="" asp-controller="Employees" asp-action="Index">Employee List</a></li>
+                              <li><a class="dropdown-item" asp-area="" asp-controller="Employees" asp-action="Create">Add Employee</a></li> 
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="dropdown-item" href="#">Attendence</a></li>
+                              <li><a class="dropdown-item" href="#">Salray Report</a></li> 
+                            </ul>
+                          </li>  
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container-fluid px-5">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -51,9 +69,13 @@
             &copy; 2022 - HR - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+  
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

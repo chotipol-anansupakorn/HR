@@ -7,6 +7,5 @@ namespace HR.Models.db
     {
         public int DepartmentId { get; set; }
         public string DepartmentName { get; set; } = null!;
-        public int DeparmentBossId { get; set; }
     }
 }

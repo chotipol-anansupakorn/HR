@@ -11,5 +11,7 @@ namespace HR.Models.db
         public DateTime ShiftStartDate { get; set; }
         public DateTime ShiftStopDate { get; set; }
         public DateTime RegistDateTime { get; set; }
+
+        public virtual WorkingPeriod WorkingHrs { get; set; } = null!;
     }
 }

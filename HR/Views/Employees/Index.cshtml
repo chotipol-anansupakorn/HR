@@ -8,67 +8,94 @@
         <script>alert('@TempData["message"]');</script>
        TempData.Remove("message");
     }
-}
- 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.EmpId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmpName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmpSurname)
-            </th>   
-            <th>
-                @Html.DisplayNameFor(model => model.EmpJobName)
-            </th> 
-            <th>
-                @Html.DisplayNameFor(model => model.EmpImage)  
-            </th> 
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                 <a class="hyperlink" asp-action="Details" asp-route-id="@item.EmpId">@Html.DisplayFor(modelItem => item.EmpId)</a>
-            </td>
-            <td>
-                 <a class="hyperlink" asp-action="Details" asp-route-id="@item.EmpId">@Html.DisplayFor(modelItem => item.EmpName)</a>
-            </td>
-            <td>
-                <a class="hyperlink" asp-action="Details" asp-route-id="@item.EmpId">@Html.DisplayFor(modelItem => item.EmpSurname)</a>
-            </td>
-            <td>
-                 <a class="hyperlink"  asp-action="Details" asp-route-id="@item.EmpId">@Html.DisplayFor(modelItem => item.EmpJobName)</a>
-            </td>
-            <td >   
-                    @if (item.EmpImage.Any())
-                    {
-                        var src = "~/image/" + item.EmpImage;
-                       <a asp-action="Details" asp-route-id="@item.EmpId"> <img src = "@src.ToString()" asp-append-version = "true" width="100px" alt="pic"/></a>
-                    } 
-            </td>
-            <td> 
-                <a  asp-action="Edit" asp-route-id="@item.EmpId" class="btn btn-warning btn-sm-w" width = "15px">&#x2710;</a>
-                <a  asp-action="Delete" asp-route-id="@item.EmpId" class="btn btn-danger btn-sm-w" width = "15px">&#x2716;</a>
-            </td>
-        </tr>
 }
-    </tbody>
-</table>
 
+<div class="my-4">
+   <div class="d-flex justify-content-between">   
+        <h1>รายชื่อพนักงาน</h1>         
+        
+        <div>
+            <div class="input-group">
+              <input type="text" class="form-control">
+              <span class="input-group-text" id="inputGroup-sizing-default"><ion-icon name="search-outline"></ion-icon></span>
+            </div>
+        </div>
+     </div>
+             
+     <nav class="" aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-controller ="Home" asp-action="Index">หน้าแรก</a></li>
+        <li class="breadcrumb-item"><a asp-controller ="Home" asp-action="Hr">แอดมิน</a></li> 
+        <li class="breadcrumb-item active" aria-current="page">รายชื่อ</li>
+      </ol>
+    </nav>
+</div>  
+<div class="fix-head"> 
+    <table id="" class="table table-striped">
+        <thead class="t-head py-5">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmpId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmpName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmpSurname)
+                </th>   
+                <th>
+                    @Html.DisplayNameFor(model => model.EmpJobName)
+                </th> 
+                <th>
+                    @Html.DisplayNameFor(model => model.EmpImage)  
+                </th> 
+                <th> 
+                    <p>
+                        <a asp-action="Create" class="btn btn-success"><span class="icons r-border">+</span> เพิ่ม</a>
+                    </p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td title="Click for more details!">
+                            <a class="btn btn-secondary shadow" asp-action="Details" asp-route-id="@item?.EmpId">@Html.DisplayFor(modelItem => item.EmpId)</a>
+                        </td>
+                        <td title="Click for more details!">
+                            <a class="hyperlink" asp-action="Details" asp-route-id="@item?.EmpId">@Html.DisplayFor(modelItem => item.EmpName)</a>
+                        </td>
+                        <td title="Click for more details!">
+                            <a class="hyperlink" asp-action="Details" asp-route-id="@item?.EmpId">@Html.DisplayFor(modelItem => item.EmpSurname)</a>
+                        </td>
+                        <td title="Click for more details!">
+                            <a class="hyperlink"  asp-action="Details" asp-route-id="@item?.EmpId">@Html.DisplayFor(modelItem => item.EmpJobName)</a>
+                        </td>
+                        <td title="Click for more details!">   
+
+                            @if (item?.EmpImage != null)
+                            {
+                                var src = "~/image/" + item.EmpImage;
+                                <a asp-action="Details" asp-route-id="@item.EmpId"> <img src = "@src.ToString()" asp-append-version = "true" width="100px" height="75px" alt="pic"/></a>
+                            } 
+                        </td>
+                        <td> 
+                            <a asp-action="Edit" asp-route-id="@item?.EmpId" class="btn btn-warning icons my-1"><ion-icon name="create-outline"></ion-icon></a>
+                            <a asp-action="Delete" asp-route-id="@item?.EmpId" class="btn btn-danger icons my-1"><ion-icon name="trash-outline"></ion-icon></a>
+                        </td>
+                    </tr>
+                }
+
+            }
+        </tbody>
+    </table>
+</div>
 @section Scripts {
     <script src="~/js/Region.js"></script>
     <script src="~/js/site.js"></script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+} 

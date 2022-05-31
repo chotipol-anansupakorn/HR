@@ -1,19 +1,40 @@
-﻿const Province = document.querySelector("#Province");
+﻿const EmpDepartment = document.querySelector("#Province");
 const District = document.querySelector("#District");
 
-
-
  
-
-$(document).ready(function () {
+$(document).ready(function () { 
     let Zipcode = $("#Zipcode");
     let Subdistrict = $("#SubDistrict");
     let District = $("#District");
     let Province = $("#Province");
+    let Boss = $("#BossId");
+    let EmpDepartmentId = $("#EmpDepartmentId");
 
+    Boss.prop('disabled', true); 
     Zipcode.prop('disabled', true);
     Subdistrict.prop('disabled', true);
     District.prop('disabled', true);
+
+    EmpDepartmentId.change(function () {
+        if ($(this).val() == 0) {
+            Boss.prop('disabled', true);
+            Boss.val(0);
+        }
+        else {
+            Boss.prop('disabled', false);
+            $.ajax({
+                url: "/api/boss/" + $(this).val(),
+                method: "get",
+                success: function (data) {
+                    Boss.empty();
+                    Boss.append($('<option>', { value: '0', text: 'Select one' }));
+                    $(data).each(function (index, item) {
+                        Boss.append($('<option>', { value: item.Id, text: item.empName }));
+                    });
+                }
+            });
+        }
+    });
 
     Province.change(function () {
         if ($(this).val() == 0) {
@@ -28,7 +49,7 @@ $(document).ready(function () {
                 success: function (data) {
                     District.empty();
                     District.append($('<option>', { value: '0', text: 'Select one' }));
-                    $(data).each(function (index, item) { 
+                    $(data).each(function (index, item) {
                         District.append($('<option>', { value: item.id, text: item.districtName }));
                     });
                 }

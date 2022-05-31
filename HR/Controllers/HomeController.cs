@@ -5,12 +5,12 @@ using System.Diagnostics;
 namespace HR.Controllers
 {
     public class HomeController : Controller
-    {  
+    {
         public IActionResult Index()
         {
             return View();
         }
-         
+
         public IActionResult Hr()
         {
             return View();
@@ -28,6 +28,11 @@ namespace HR.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        [Produces("text/html")]
+        public IActionResult Null()
+        {
+            return View();
         }
     }
 }

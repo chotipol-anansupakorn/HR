@@ -1,0 +1,479 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@ 
+@model HR.Models.Viewmodels.RegistEmp;
+@{
+    var nulls = "-"; 
+} 
+<div class="my-4">
+ <div id="emp-text">
+        <!--personal info-->
+        <div id="personal_info" class="my-3">
+             <div>
+               <p class="h5 my-4"><u>ข้อมูลส่วนบุคคล</u></p> 
+           </div>
+             
+               <div class="row mb-2"> 
+
+                   <div class="col-lg-2 pb-4">  
+                       <img class="empImg" src="~/image/@Html.DisplayTextFor(model => model.EmpImage)"/>
+                   </div>
+
+                   <div class="col-lg-10">
+                           <div class="row"> 
+                                <div class="col-md-2">
+                                   <label class="control-label">รหัส</label> 
+                                  <p class="border-data">@Html.DisplayFor(model => model.EmpId)</p>
+                               </div>
+
+                               <div class="col-md-5">
+                                   <label class="control-label">ชื่อ - สกุล</label> 
+                                  <p class="border-data">@Html.DisplayFor(model => model.EmpName)
+                                    @Html.DisplayFor(model => model.EmpSurname)</p>
+                               </div> 
+
+                               <div class="col-md-3">
+                                   <label class="control-label">@Html.DisplayNameFor(model => model.EmpIdno)</label> 
+                                  <p class="border-data">@Html.DisplayFor(model => model.EmpIdno)</p>
+                               </div>  
+
+                                <div class="col-md-2">
+                                 <label class="control-label">เพศ</label> 
+                                <p class="border-data">@Html.DisplayFor(model => model.EmpGender)</p>
+                             </div>  
+                           </div>
+                       
+                           <div class="row"> 
+                             <div class="col-md-4">
+                                 <label class="control-label">สถานะ</label> 
+                                <p class="border-data">@Html.DisplayFor(model => model.EmpMarrySatatus)</p>
+                             </div>  
+
+                             <div class="col-md-4">
+                                 <label class="control-label">วันเกิด</label> 
+                                 <p class="border-data">@Html.DisplayFor(model => model.Bod)</p>
+                             </div>   
+
+                             <div class="col-md-4">
+                                 <label class="control-label">อายุ</label> 
+                                 <p class="border-data">
+                                @{
+                                    var now = DateTime.Now;
+                                    var birthday = Model.Bod.Value; 
+
+                                    DateTime zeroTime = new DateTime(1, 1, 1);
+                                    int month,year,day;
+
+                                    TimeSpan span = new  TimeSpan();
+                                    span = now - birthday;
+                                    year = (zeroTime+span).Year - 1; 
+                                    month = (zeroTime+span).Month - 1; 
+                                    day = (zeroTime+span).Day - 1;
+                                }
+                                 @year ปี @month เดือน @day วัน</p>
+                             </div>   
+                       </div>
+                   </div>
+               </div> 
+                
+                
+                <div class="row">
+                    <div class="col-12">
+                         <label class="control-label">ที่อยู่ตามบัตรประชาชน</label> 
+                        <p class="border-data">@Html.DisplayFor(model => model.EmpIdcardAddress)</p>
+                     </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                         <label class="control-label">ที่อยู่ปัจจุบัน</label> 
+                        <p class="border-data">@Html.DisplayFor(model => model.EmpCurrentAddress)</p>
+                     </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                         <label class="control-label">แขวง/ตำบล</label> 
+                        <p class="border-data">@Html.DisplayFor(model => model.SubDistrictName)</p>
+                     </div>
+
+                     <div class="col-md-6">
+                         <label class="control-label">เขต/อำเภอ</label> 
+                        <p class="border-data">@Html.DisplayFor(model => model.DistrictName)</p>
+                     </div>
+
+                     <div class="col-md-6">
+                         <label class="control-label">รหัสไปรษณีย์</label> 
+                        <p class="border-data">@Html.DisplayFor(model => model.ProvinceName)</p>
+                     </div>
+
+                     <div class="col-md-6">
+                         <label class="control-label">ที่อยู่ปัจจุบัน</label> 
+                        <p class="border-data">@Html.DisplayFor(model => model.ZipcodeName)</p>
+                     </div>
+                </div> 
+                 
+                <div class="row">
+                   <div class="col-md-6">
+                         <label class="control-label">โทร</label> 
+                         <p class="border-data">@Html.DisplayFor(model => model.EmpTel)</p>
+                    </div>
+                     
+                    <div class="col-md-6">
+                          <label class="control-label">เมล์</label> 
+                          <p class="border-data">@Html.DisplayFor(model => model.EmpEmail)</p>
+                     </div> 
+                </div> 
+        </div>
+
+        <div class="hr-line"></div>
+
+        <!--family info-->
+        <div id="family_info" class="-3">
+             <div>
+               <p class="h5 my-4"><u>ข้อมูลครอบครัว</u></p> 
+           </div>
+             <!--dad info-->
+             @{
+                  var Dname = "-";
+                    var Dsur ="";
+                    var Ddob ="-";
+                    var Djob ="-";
+                    var Dtel = "-";
+
+                    var Mname = "-";
+                    var Msur ="";
+                    var Mdob ="-";
+                    var Mjob ="-";
+                    var Mtel = "-";
+
+                    var Sname = "-";
+                    var Ssur = "";
+                    var Sdob = "-";
+                    var Sjob = "-";
+                    var Stel = "-";
+
+                    var Spname = "-";
+                    var Spsur = "";
+                    var Spdob = "-";
+                    var Spjob = "-";
+                    var Sptel = "-";
+
+                    var Ename = "-";
+                    var Esur ="";
+                    var Ere ="-";
+                    var Etel = "-"; 
+             }
+
+        @if (Model.ContactList?.Count() > 0)
+        {
+            @foreach (var item in Model.ContactList)
+            {
+                Dname = item.EmpDadName;
+                Dsur = item.EmpDadSurname;
+                Djob = item.EmpDadJob;
+                Ddob = item.EmpDadDob.ToString("dd MMM yyyy");
+                Dtel = item.EmpDadTel;
+
+                Mname = item.EmpSpouseName;
+                Msur = item.EmpSpouseSurname;
+                Mjob = item.EmpSpouseJob;
+                Mdob = item.EmpSpouseDob?.ToString("dd MMM yyyy");
+                Mtel = item.EmpSpouseTel;
+
+                Sname = item.EmpMomName;
+                Ssur = item.EmpMomSurname;
+                Sjob = item.EmpMomJob;
+                Sdob = item.EmpMomDob.ToString("dd MMM yyyy");
+                Stel = item.EmpMomTel;
+
+                Spname = item.EmpSpouseName;
+                Spsur = item.EmpSpouseSurname;
+                Spjob = item.EmpSpouseJob;
+                Spdob = item.EmpSpouseDob?.ToString("dd MMM yyyy");
+                Sptel = item.EmpSpouseTel;
+
+                Ename = item.EmergencyContactName;
+                Esur = item.EmergencyContactSurname;
+                Ere = item.EmergencyContactRelation;
+                Etel = item.EmergencyContactTel;
+            }
+        } 
+        <div class="row">                  
+                <div class="col-12">
+                   <label class="control-label">ชื่อ - สกุล (บิดา)</label>    
+                   <p class="border-data">@Dname @Dsur</p>
+               </div> 
+
+               <div class="col-md-4">
+                   <label class="control-label">วันเกิด</label>    
+                   <p class="border-data">@Ddob</p>
+               </div>
+
+               <div class="col-md-4">
+                   <label class="control-label">อาชีพ</label>    
+                   <p class="border-data">@Djob</p>
+               </div>
+
+               <div class="col-md-4">
+                   <label class="control-label">โทร</label>    
+                   <p class="border-data">@Dtel</p>
+               </div>
+           </div>
+
+             <div class="row mb-2">
+                <div class="col-12">
+                   <label class="control-label">ชื่อ - สกุล (มารดา)</label>    
+                   <p class="border-data">@Mname @Msur</p>
+               </div> 
+
+               <div class="col-md-4">
+                   <label class="control-label">วันเกิด</label>    
+                   <p class="border-data">@Mdob</p>
+               </div>
+
+               <div class="col-md-4">
+                   <label class="control-label">อาชีพ</label>    
+                   <p class="border-data">@Mjob</p>
+               </div>
+
+               <div class="col-md-4">
+                   <label class="control-label">โทร</label>    
+                   <p class="border-data">@Mtel</p>
+               </div>
+             </div>
+
+           
+            <div class="mt-4"></div>   
+
+            <div class="row mb-2">
+            @{
+                var i = 1;
+                 var name = "-";
+                 var dob = "-";
+                 var job = "-";
+                 var tel = "-";
+
+                var bs1 = @"<div class=""col-md-6"">
+                                <label class=""control-label"">ชื่อ - สกุล (พี่น้อง ";
+                var bs2 = @")</label>    
+                                <p class=""border-data"">";
+                var bs3 = @"</p>
+                            </div>
+                            <div class=""col-md-6"">
+                                <label class=""control-label"">วันเกิด</label>    
+                                <p class=""border-data"">"; 
+                var bs4 = @"</p>
+                            </div>
+                            <div class=""col-md-6"">
+                                <label class=""control-label"">อาชีพ</label>    
+                                <p class=""border-data"">"; 
+                 var bs5 = @"</p>
+                            </div>
+                            <div class=""col-md-6"">
+                                <label class=""control-label"">โทร</label>    
+                                <p class=""border-data"">";
+                 var bs6 =  @"</div> 
+                        </div>";
+               
+                 @if (Model.SlibingList?.Count()>0)
+                    {
+                  @foreach (var item in Model.SlibingList)
+                    {
+                
+                        name = item.EmpSlibingName + " " + item.EmpSlibingSurname;
+                        dob = item.EmpSlibingDob.Value.ToString("dd MMM yyyy");
+                        job = item.EmpSlibingJob;
+                        tel = item.EmpSlibingTel;
+                        
+                        @Html.Raw(@bs1+@i+@bs2+@name+@bs3+@dob+@bs4+@job+@bs5+@tel+@bs6);
+                        i++;
+                    }
+
+                }
+                else
+                {
+                     @Html.Raw(@bs1+@i+@bs2+@name+@bs3+@dob+@bs4+@job+@bs5+@tel+@bs6);
+                }
+            }
+            </div>
+
+            
+            <div class="mt-4"></div>   
+
+            <div class="row mb-2">
+                <div class="col-12">
+                   <label class="control-label">ชื่อ - สกุล (คู่สมรส)</label>    
+                   <p class="border-data">@Spname @Spsur</p>
+               </div> 
+
+               <div class="col-md-4">
+                   <label class="control-label">วันเกิด</label>    
+                   <p class="border-data">@Spdob</p>
+               </div>
+
+               <div class="col-md-4">
+                   <label class="control-label">อาชีพ</label>    
+                   <p class="border-data">@Spjob</p>
+               </div>
+
+               <div class="col-md-4">
+                   <label class="control-label">โทร</label>    
+                   <p class="border-data">@Sptel</p>
+               </div>
+             </div>
+
+             
+            <div class="mt-4"></div>   
+
+            <div class="row mb-2">
+            @{
+                i = 1;
+                name = "-";
+                dob = "-";
+
+                var ch1 = @"<div class=""col-md-6"">
+                                <label class=""control-label"">ชื่อ - สกุล (ลูก ";
+                var ch2 = @")</label>    
+                                <p class=""border-data"">";
+                var ch3 = @"</p>
+                            </div>
+                            <div class=""col-md-6"">
+                                <label class=""control-label"">วันเกิด</label>    
+                                <p class=""border-data"">"; 
+                var ch4 = @"</p>
+                            </div>";
+
+                @if (Model.ChildernList?.Count()>0)
+                {
+                    @foreach (var item in Model.ChildernList)
+                    {
+                        name = item.EmpChildName + " " + item.EmpChildSurname;
+                        dob = item.EmpChildDob.Value.ToString("dd MMM yyyy");
+                        
+                        @Html.Raw(@ch1+@i+@ch2+@name+@ch3+@dob+@ch4);
+
+                        i++;
+                    }
+                }
+                else
+                {
+                        @Html.Raw(@ch1+@i+@ch2+@name+@ch3+@dob+@ch4);
+                }
+            } 
+            </div>
+        </div>        
+
+        <div class="hr-line"></div>
+        <!--contact info-->
+        <div id="contact_info" class="my-3">
+             <div>
+               <p class="h5 my-4"><u>ติดต่อฉุกเฉิน</u></p> 
+        </div>
+            
+             <div class="row">
+                <div class="col-12">
+                   <label class="control-label">ชื่อ - สกุล</label>    
+                   <p class="border-data">@Ename @Esur</p>
+               </div>  
+
+               <div class="col-md-6">
+                   <label class="control-label">ความสัมพันธ์</label>    
+                   <p class="border-data">@Ere</p>
+               </div>
+
+               <div class="col-md-6">
+                   <label class="control-label">โทร</label>    
+                   <p class="border-data">@Etel</p>
+               </div>
+             </div>   
+        </div>
+ 
+        
+        <div class="hr-line"></div>
+
+        <div id="working_info" class="my-3">
+             <div>
+               <p class="h5 my-4"><u>ข้อมูลการทำงาน</u></p> 
+           </div>
+
+           <div class="row">
+                <div class="col-md-6">
+                       <label class="control-label">แผนก</label>    
+                       <p class="border-data">@Html.DisplayFor(model => model.EmpDepartment)</p>
+                </div>
+
+                <div class="col-md-6">
+                       <label class="control-label">ตำแหน่ง</label>    
+                       <p class="border-data">@Html.DisplayFor(model => model.EmpPosition)</p>
+                </div>
+                
+                <div class="col-md-6">
+                       <label class="control-label">อาชีพ</label>    
+                       <p class="border-data">@Html.DisplayFor(model => model.EmpJobName)</p>
+                </div>
+
+
+                 <!--boss info-->
+    
+                <div class="col-md-6">
+                       <label class="control-label">หัวหน้า</label>    
+                       <p class="border-data">@Html.DisplayFor(model => model.BossName) @Html.DisplayFor(model => model.BossSurName)</p>
+                </div> 
+           </div>
+
+
+           <div class="row mb-2">
+                <div class="col-md-6">
+                       <label class="control-label">วันเริ่มงาน</label>    
+                       <p class="border-data">@Html.DisplayFor(model => model.EmpStart)</p>
+                </div>
+
+                <div class="col-md-6">
+                       <label class="control-label">วันสิ้นสุดการทำงาน</label>
+                    <p class="border-data">
+                        @{
+                            var end = Model.EmpEnd;
+                            if(end == null)
+                            {
+                               @Html.Raw(nulls);
+                            }
+                            else
+                            {
+                                @end.Value.ToString("dd MMM yyyy");
+                            }
+                        }</p>
+                </div>
+                
+
+                 <div class="col-md-6">
+                       <label class="control-label">เวลาทำงาน</label>    
+                       <p class="border-data">@Html.DisplayFor(model => model.WorkingHrs)</p>
+                </div> 
+
+
+                <div class="col-md-6">
+                       <label class="control-label">สถานะทดลองงาน</label>     
+                       <p class="border-data">
+                       @{
+                            var pro = @Html.DisplayFor(model => model.Probation);
+
+                            if(Model.Probation == 0)
+                            {
+                                @Html.Raw("ยังไม่ผ่านทดลองงาน");
+                            }
+                            else
+                            {
+                                @pro;
+                            }
+                        }
+                       </p>
+                </div> 
+               
+           </div>
+
+        </div> 
+
+</div> 
+</div>
+ 

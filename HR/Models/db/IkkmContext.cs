@@ -59,8 +59,6 @@ namespace HR.Models.db
 
                 entity.Property(e => e.DepartmentId).HasColumnName("departmentID");
 
-                entity.Property(e => e.DeparmentBossId).HasColumnName("deparmentBossID");
-
                 entity.Property(e => e.DepartmentName)
                     .HasMaxLength(150)
                     .IsUnicode(false)
@@ -91,12 +89,6 @@ namespace HR.Models.db
                 entity.Property(e => e.EmpId)
                     .HasMaxLength(7)
                     .HasColumnName("empID");
-
-                entity.HasOne(d => d.Emp)
-                    .WithMany(p => p.EmpBosses)
-                    .HasForeignKey(d => d.EmpId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_empSubordinate_employee");
             });
 
             modelBuilder.Entity<EmpChild>(entity =>
@@ -124,7 +116,7 @@ namespace HR.Models.db
                 entity.HasOne(d => d.Emp)
                     .WithMany(p => p.EmpChildren)
                     .HasForeignKey(d => d.EmpId)
-                    .HasConstraintName("FK_empChild_Id");
+                    .HasConstraintName("FK_empChild_empChild");
             });
 
             modelBuilder.Entity<EmpContact>(entity =>
@@ -217,7 +209,7 @@ namespace HR.Models.db
                     .WithMany(p => p.EmpContacts)
                     .HasForeignKey(d => d.EmpId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_empContact_Id");
+                    .HasConstraintName("FK_empContact_employee");
             });
 
             modelBuilder.Entity<EmpLeave>(entity =>
@@ -249,11 +241,11 @@ namespace HR.Models.db
                     .IsConcurrencyToken()
                     .HasColumnName("registDateTime");
 
-                entity.HasOne(d => d.Emp)
+                entity.HasOne(d => d.Leave)
                     .WithMany(p => p.EmpLeaves)
-                    .HasForeignKey(d => d.EmpId)
+                    .HasForeignKey(d => d.LeaveId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_empLeave_empLeave");
+                    .HasConstraintName("FK_empLeave_leave");
             });
 
             modelBuilder.Entity<EmpOt>(entity =>
@@ -276,11 +268,9 @@ namespace HR.Models.db
                     .HasColumnType("date")
                     .HasColumnName("OT_Date");
 
+                entity.Property(e => e.OtHrs).HasColumnName("OT_hrs");
+
                 entity.Property(e => e.OtId).HasColumnName("OT_id");
-
-                entity.Property(e => e.OtStart).HasColumnName("OT_Start");
-
-                entity.Property(e => e.OtStop).HasColumnName("OT_Stop");
 
                 entity.Property(e => e.RegistDateTime)
                     .HasColumnType("datetime")
@@ -290,7 +280,13 @@ namespace HR.Models.db
                     .WithMany(p => p.EmpOts)
                     .HasForeignKey(d => d.EmpId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_empOT_employee");
+                    .HasConstraintName("FK_empOT_empOT");
+
+                entity.HasOne(d => d.Ot)
+                    .WithMany(p => p.EmpOts)
+                    .HasForeignKey(d => d.OtId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_empOT_OT");
             });
 
             modelBuilder.Entity<EmpSlibing>(entity =>
@@ -326,7 +322,7 @@ namespace HR.Models.db
                 entity.HasOne(d => d.Emp)
                     .WithMany(p => p.EmpSlibings)
                     .HasForeignKey(d => d.EmpId)
-                    .HasConstraintName("FK_empSlibing_Id");
+                    .HasConstraintName("FK_empSlibing_employee");
             });
 
             modelBuilder.Entity<EmpTimestamp>(entity =>
@@ -356,12 +352,10 @@ namespace HR.Models.db
 
             modelBuilder.Entity<Employee>(entity =>
             {
-                entity.HasKey(e => e.EmpId);
+                entity.HasKey(e => e.EmpId)
+                    .HasName("PK_employee_1");
 
                 entity.ToTable("employee");
-
-                entity.HasIndex(e => e.EmpIdno, "IX_empIDNo")
-                    .IsUnique();
 
                 entity.Property(e => e.EmpId)
                     .HasMaxLength(7)
@@ -423,7 +417,8 @@ namespace HR.Models.db
 
                 entity.Property(e => e.Id)
                     .ValueGeneratedOnAdd()
-                    .HasColumnName("id");
+                    .HasColumnName("id")
+                    .Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Ignore); 
 
                 entity.Property(e => e.IsDelete)
                     .HasColumnName("isDelete")
@@ -440,7 +435,8 @@ namespace HR.Models.db
                 entity.Property(e => e.RegistDateTime)
                     .HasColumnType("datetime")
                     .HasColumnName("registDateTime")
-                    .HasDefaultValueSql("(getdate())");
+                    .HasDefaultValueSql("(getdate())")
+                    .Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Ignore); ;
 
                 entity.Property(e => e.SkillSalary).HasColumnName("skillSalary");
 
@@ -583,6 +579,12 @@ namespace HR.Models.db
                     .HasColumnName("shiftStopDate");
 
                 entity.Property(e => e.WorkingHrsId).HasColumnName("workingHrsID");
+
+                entity.HasOne(d => d.WorkingHrs)
+                    .WithMany(p => p.WorkingShifts)
+                    .HasForeignKey(d => d.WorkingHrsId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_workingShift_workingPeriod");
             });
 
             modelBuilder.Entity<Zipcode>(entity =>

@@ -13,6 +13,6 @@ namespace HR.Models.db
         public byte[] RegistDateTime { get; set; } = null!;
         public string ApproveBy { get; set; } = null!;
 
-        public virtual Employee Emp { get; set; } = null!;
+        public virtual Leave Leave { get; set; } = null!;
     }
 }

@@ -5,19 +5,16 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4 mb-3">Human Resources</h1> 
+    <h1 class="display-4">Admin</h1> 
 </div>
 
- <nav class="mb-5">
-  <ul class="pathway d-flex flex">
-    <li class=""><a asp-controller ="Home" asp-action="Index" class="btn btn-outline-secondary">Dashboard</a></li>
-    <li class=""><span class="right-chevron"> &#187; </span></li>
-    <li class=""><a class="btn btn-secondary">HR</a></li> 
-  </ul>
-</nav>
 
-
-<div class="container-fluid">   
+     <nav class="mb-5" aria-label="breadcrumb">
+      <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a asp-controller ="Home" asp-action="Index">หน้าแรก</a></li> 
+        <li class="breadcrumb-item active" aria-current="page">แอดมิน</li>
+      </ol>
+    </nav>  
         <div class="mb-5">
             <div id="employeeInfo" class="mb-5">
                     <div id="toggle-card" class="d-flex w-100 justify-content-between">
@@ -30,21 +27,22 @@
             
             <div id="toggleCard" class="">
                 <div id="employee" class="row toggleCardRow">
+                    <div class="col-xl-4 mb-2"> 
+                      <div class="card card-body mb-3 d-flex align-items-stretch shadow-sm">  
+                            <h5 class="card-title">Employee List</h5>
+                          <!--  <p class="card-text" >look all emplyee list</p> -->
+                            <a id ="card-link" asp-area="" asp-controller="Employees" asp-action="Index"> </a>  
+                          </div>
+                      </div> 
+                    
                     <div class="col-xl-4 mb-2">                
-                        <div class="card card-body mb-3 d-flex align-items-stretch shadow-sm h-100">  
-                            <h5 class="card-title">Add Employee Infomation</h5>
-                            <p class="card-text" >Add personal and family infomation and also emergency person to contact</p>
-                           <a id ="card-link" asp-area="" asp-controller="Home" asp-action="AddEmployee"> </a>  
+                        <div class="card card-body mb-3 d-flex align-items-stretch shadow-sm">  
+                            <h5 class="card-title">Add Employee Infomation</h5> 
+                           <a id ="card-link" asp-area="" asp-controller="Employees" asp-action="Create"> </a>  
                          </div>
                      </div>   
 
-                    <div class="col-xl-4 mb-2"> 
-                      <div class="card card-body mb-3 d-flex align-items-stretch shadow-sm h-100">  
-                            <h5 class="card-title">Update Employee Infomation</h5>
-                            <p class="card-text" >Update personal and family infomation and also emergency person to contact</p>
-                            <a id ="card-link" asp-area="" asp-controller="Home" asp-action="UpdateEmployee"> </a>  
-                          </div>
-                      </div>  
+                     
                     </div>
              </div>
         </div>
@@ -119,8 +117,7 @@
               </div>  
            </div>
         </div>
-    </div>
-  </div>
+    </div> 
   
   
      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

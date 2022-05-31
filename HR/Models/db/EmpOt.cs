@@ -8,12 +8,12 @@ namespace HR.Models.db
         public int Id { get; set; }
         public string EmpId { get; set; } = null!;
         public DateTime OtDate { get; set; }
-        public TimeSpan OtStart { get; set; }
-        public TimeSpan OtStop { get; set; }
+        public TimeSpan OtHrs { get; set; }
         public int OtId { get; set; }
         public DateTime RegistDateTime { get; set; }
         public string ApproveBy { get; set; } = null!;
 
         public virtual Employee Emp { get; set; } = null!;
+        public virtual Ot Ot { get; set; } = null!;
     }
 }

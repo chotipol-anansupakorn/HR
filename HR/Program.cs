@@ -53,15 +53,18 @@ app.MapControllerRoute(
 
 app.MapControllerRoute(
        name: "empEdit",
-       pattern: "{controller=Employees}/{action=Edit}/{id?}"); 
+       pattern: "{controller=Employees}/{action=Edit}/{EmpId?}"); 
 
 
 app.MapControllerRoute(
        name: "el",
        pattern: "{controller=Employees}/{action=Delete}/{id?}");
 
-
 app.MapControllerRoute(
        name: "error",
        pattern: "{controller=Error}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+       name: "timestamp",
+       pattern: "{controller=TimeStamp}/{action=Index}/{id?}");
 app.Run();

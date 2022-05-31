@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4 text-capitalize mb-5">TimeStamp</h1> 
+</div>   
+
+
+<h1 id="clock" class="display-1 text-center"></h1>  
+
+<div class="d-flex align-content-center justify-content-center g-3">
+    <a class = "btn btn-primary timestamp-btn">Check In</a>
+    <a class = "btn btn-warning timestamp-btn">Check Out</a>
+</div>
+
+
+<script>
+     window.onload = displayClock();
+    function displayClock(){
+      var display = new Date().toLocaleTimeString('en-GB');
+      document.getElementById("clock").innerHTML = display;
+      setTimeout(displayClock, 1000); 
+    }
+</script>
